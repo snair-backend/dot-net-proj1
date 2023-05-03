@@ -1,0 +1,26 @@
+name: "CodeAnalysis"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Perform Code Analysis
+      uses: dotnet/code-analysis@v1
+      id: code-analysis
+      with:
+        projects: MyTestWebApp\MyTestWebApp.csproj
+        build-breaking: true
+        security: 5.0-all
+        performance: 5.0-all
+        all-categories: 5.0-recommended

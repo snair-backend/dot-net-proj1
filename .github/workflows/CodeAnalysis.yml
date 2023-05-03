@@ -22,12 +22,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Perform Code Analysis
-      uses: dotnet/code-analysis@v1
-      id: code-analysis
-      with:
-        solution: MyTestWebApp.sln
-        build-breaking: true
-        security: 5.0-all
-        performance: 5.0-all
-        all-categories: 5.0-recommended
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      # Override language selection by uncommenting this and choosing your languages
+      # with:
+      #   languages: go, javascript, csharp, python, cpp, java, ruby
+
+    # Autobuild attempts to build any compiled languages (C/C++, C#, Go, or Java).
+    # If this step fails, then you should remove it and run the build manually (see below).
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2

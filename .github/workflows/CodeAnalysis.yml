@@ -10,6 +10,13 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      # required for all workflows
+      security-events: write
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read    
 
     steps:
     - name: Checkout repository
@@ -19,7 +26,7 @@ jobs:
       uses: dotnet/code-analysis@v1
       id: code-analysis
       with:
-        projects: MyTestWebApp\MyTestWebApp.csproj
+        solution: MyTestWebApp.sln
         build-breaking: true
         security: 5.0-all
         performance: 5.0-all
